@@ -1,0 +1,93 @@
+<div>
+    <h2>
+        <span jhiTranslate="itgmApp.modeloExclusivo.home.title">Modelo Exclusivos</span>
+        <button class="btn btn-primary float-right create-modelo-exclusivo" [routerLink]="['/', { outlets: { popup: ['modelo-exclusivo-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="itgmApp.modeloExclusivo.home.createLabel">
+            Create new Modelo Exclusivo
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12 no-padding-right">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'itgmApp.modeloExclusivo.home.search' | translate }}">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="modeloExclusivos">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="nome"><span jhiTranslate="itgmApp.modeloExclusivo.nome">Nome</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="mapeamento"><span jhiTranslate="itgmApp.modeloExclusivo.mapeamento">Mapeamento</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="palpite"><span jhiTranslate="itgmApp.modeloExclusivo.palpite">Palpite</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="modelo.id"><span jhiTranslate="itgmApp.modeloExclusivo.modelo">Modelo</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cenario.id"><span jhiTranslate="itgmApp.modeloExclusivo.cenario">Cenario</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let modeloExclusivo of modeloExclusivos ;trackBy: trackId">
+                <td><a [routerLink]="['../modelo-exclusivo', modeloExclusivo.id ]">{{modeloExclusivo.id}}</a></td>
+                <td>{{modeloExclusivo.nome}}</td>
+                <td>{{modeloExclusivo.mapeamento}}</td>
+                <td>{{modeloExclusivo.palpite}}</td>
+                <td>
+                    <div *ngIf="modeloExclusivo.modelo">
+                        <a [routerLink]="['../modelo', modeloExclusivo.modelo?.id ]" >{{modeloExclusivo.modelo?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="modeloExclusivo.cenario">
+                        <a [routerLink]="['../cenario', modeloExclusivo.cenario?.id ]" >{{modeloExclusivo.cenario?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../modelo-exclusivo', modeloExclusivo.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'modelo-exclusivo/'+ modeloExclusivo.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'modelo-exclusivo/'+ modeloExclusivo.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div *ngIf="modeloExclusivos && modeloExclusivos.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+</div>

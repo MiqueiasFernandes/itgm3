@@ -1,0 +1,49 @@
+
+<div *ngIf="compartilhar">
+    <h2><span jhiTranslate="itgmApp.compartilhar.detail.title">Compartilhar</span> {{compartilhar.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="itgmApp.compartilhar.tipo">Tipo</span></dt>
+        <dd>
+            <span>{{compartilhar.tipo}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.compartilhar.mensagem">Mensagem</span></dt>
+        <dd>
+            <span>{{compartilhar.mensagem}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.compartilhar.codigo">Codigo</span></dt>
+        <dd>
+            <span>{{compartilhar.codigo}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.compartilhar.nome">Nome</span></dt>
+        <dd>
+            <span>{{compartilhar.nome}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.compartilhar.status">Status</span></dt>
+        <dd>
+            <span>{{compartilhar.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.compartilhar.remetente">Remetente</span></dt>
+        <dd>
+            {{compartilhar.remetente?.login}}
+        </dd>
+        <dt><span jhiTranslate="itgmApp.compartilhar.destinatario">Destinatario</span></dt>
+        <dd>
+            {{compartilhar.destinatario?.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'compartilhar/'+ compartilhar.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

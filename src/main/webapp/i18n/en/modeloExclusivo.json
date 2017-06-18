@@ -1,0 +1,26 @@
+{
+    "itgmApp": {
+        "modeloExclusivo" : {
+            "home": {
+                "title": "Modelo Exclusivos",
+                "createLabel": "Create a new Modelo Exclusivo",
+                "createOrEditLabel": "Create or edit a Modelo Exclusivo",
+                "search": "Search for Modelo Exclusivo"
+            },
+            "created": "A new Modelo Exclusivo is created with identifier {{ param }}",
+            "updated": "A Modelo Exclusivo is updated with identifier {{ param }}",
+            "deleted": "A Modelo Exclusivo is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Modelo Exclusivo {{ id }}?"
+            },
+            "detail": {
+                "title": "Modelo Exclusivo"
+            },
+            "nome": "Nome",
+            "mapeamento": "Mapeamento",
+            "palpite": "Palpite",
+            "modelo": "Modelo",
+            "cenario": "Cenario"
+        }
+    }
+}

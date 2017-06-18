@@ -1,0 +1,38 @@
+{
+    "itgmApp": {
+        "card" : {
+            "home": {
+                "title": "Cards",
+                "createLabel": "Create a new Card",
+                "createOrEditLabel": "Create or edit a Card",
+                "search": "Search for Card"
+            },
+            "created": "A new Card is created with identifier {{ param }}",
+            "updated": "A Card is updated with identifier {{ param }}",
+            "deleted": "A Card is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Card {{ id }}?"
+            },
+            "detail": {
+                "title": "Card"
+            },
+            "nome": "Nome",
+            "url": "Url",
+            "https": "Https",
+            "meta": "Meta",
+            "previa": "Previa",
+            "disposicao": "Disposicao",
+            "tipo": "Tipo",
+            "linha": "Linha",
+            "coluna": "Coluna",
+            "modo": "Modo",
+            "caminho": "Caminho",
+            "arquivo": "Arquivo",
+            "extensao": "Extensao",
+            "largura": "Largura",
+            "classe": "Classe",
+            "codigo": "Codigo",
+            "cenario": "Cenario"
+        }
+    }
+}

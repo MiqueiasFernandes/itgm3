@@ -1,0 +1,25 @@
+{
+    "itgmApp": {
+        "terminal" : {
+            "home": {
+                "title": "Terminals",
+                "createLabel": "Criar novo Terminal",
+                "createOrEditLabel": "Criar ou editar Terminal",
+                "search": "Pesquisar por Terminal"
+            },
+            "created": "Um novo Terminal é criado com o identificador {{ param }}",
+            "updated": "Um Terminal é atualizado com o identificador {{ param }}",
+            "deleted": "Um Terminal é deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Terminal {{ id }}?"
+            },
+            "detail": {
+                "title": "Terminal"
+            },
+            "nome": "Nome",
+            "url": "Url",
+            "status": "Status",
+            "cenario": "Cenario"
+        }
+    }
+}

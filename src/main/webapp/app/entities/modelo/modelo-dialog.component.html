@@ -1,0 +1,86 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myModeloLabel" jhiTranslate="itgmApp.modelo.home.createOrEditLabel">Create or edit a Modelo</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!modelo.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="modelo.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.modelo.nome" for="field_nome">Nome</label>
+            <input type="text" class="form-control" name="nome" id="field_nome"
+                [(ngModel)]="modelo.nome"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.modelo.cor" for="field_cor">Cor</label>
+            <input type="text" class="form-control" name="cor" id="field_cor"
+                [(ngModel)]="modelo.cor"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.modelo.formula" for="field_formula">Formula</label>
+            <input type="text" class="form-control" name="formula" id="field_formula"
+                [(ngModel)]="modelo.formula"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.modelo.funcao" for="field_funcao">Funcao</label>
+            <input type="text" class="form-control" name="funcao" id="field_funcao"
+                [(ngModel)]="modelo.funcao"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.modelo.variaveis" for="field_variaveis">Variaveis</label>
+            <input type="text" class="form-control" name="variaveis" id="field_variaveis"
+                [(ngModel)]="modelo.variaveis"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.modelo.palpite" for="field_palpite">Palpite</label>
+            <input type="text" class="form-control" name="palpite" id="field_palpite"
+                [(ngModel)]="modelo.palpite"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.modelo.parametros" for="field_parametros">Parametros</label>
+            <input type="text" class="form-control" name="parametros" id="field_parametros"
+                [(ngModel)]="modelo.parametros"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.modelo.requires" for="field_requires">Requires</label>
+            <input type="text" class="form-control" name="requires" id="field_requires"
+                [(ngModel)]="modelo.requires"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.modelo.codigo" for="field_codigo">Codigo</label>
+            <input type="text" class="form-control" name="codigo" id="field_codigo"
+                [(ngModel)]="modelo.codigo"
+             />
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="itgmApp.modelo.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="modelo.user" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === modelo.user?.id ? modelo.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

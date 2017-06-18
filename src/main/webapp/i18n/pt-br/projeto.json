@@ -1,0 +1,25 @@
+{
+    "itgmApp": {
+        "projeto" : {
+            "home": {
+                "title": "Projetos",
+                "createLabel": "Criar novo Projeto",
+                "createOrEditLabel": "Criar ou editar Projeto",
+                "search": "Pesquisar por Projeto"
+            },
+            "created": "Um novo Projeto é criado com o identificador {{ param }}",
+            "updated": "Um Projeto é atualizado com o identificador {{ param }}",
+            "deleted": "Um Projeto é deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Projeto {{ id }}?"
+            },
+            "detail": {
+                "title": "Projeto"
+            },
+            "nome": "Nome",
+            "caminho": "Caminho",
+            "arquivos": "Arquivos",
+            "user": "User"
+        }
+    }
+}

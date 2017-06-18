@@ -1,0 +1,24 @@
+{
+    "itgmApp": {
+        "cenario" : {
+            "home": {
+                "title": "Cenarios",
+                "createLabel": "Create a new Cenario",
+                "createOrEditLabel": "Create or edit a Cenario",
+                "search": "Search for Cenario"
+            },
+            "created": "A new Cenario is created with identifier {{ param }}",
+            "updated": "A Cenario is updated with identifier {{ param }}",
+            "deleted": "A Cenario is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Cenario {{ id }}?"
+            },
+            "detail": {
+                "title": "Cenario"
+            },
+            "nome": "Nome",
+            "caminho": "Caminho",
+            "projeto": "Projeto"
+        }
+    }
+}

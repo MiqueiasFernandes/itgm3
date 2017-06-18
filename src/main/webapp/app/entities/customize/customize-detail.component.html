@@ -1,0 +1,58 @@
+
+<div *ngIf="customize">
+    <h2><span jhiTranslate="itgmApp.customize.detail.title">Customize</span> {{customize.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="itgmApp.customize.sidebar">Sidebar</span></dt>
+        <dd>
+            <span>{{customize.sidebar}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.customize.color">Color</span></dt>
+        <dd>
+            <span>{{customize.color}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.customize.avatar">Avatar</span></dt>
+        <dd>
+            <div *ngIf="customize.avatar">
+                <a (click)="openFile(customize.avatarContentType, customize.avatar)">
+                    <img [src]="'data:' + customize.avatarContentType + ';base64,' + customize.avatar" style="max-width: 100%;" alt="customize image"/>
+                </a>
+                {{customize.avatarContentType}}, {{byteSize(customize.avatar)}}
+            </div>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.customize.desktop">Desktop</span></dt>
+        <dd>
+            <span>{{customize.desktop}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.customize.user">User</span></dt>
+        <dd>
+            {{customize.user?.login}}
+        </dd>
+        <dt><span jhiTranslate="itgmApp.customize.projeto">Projeto</span></dt>
+        <dd>
+            <div *ngIf="customize.projeto">
+                <a [routerLink]="['/projeto', customize.projeto?.id]">{{customize.projeto?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.customize.cenario">Cenario</span></dt>
+        <dd>
+            <div *ngIf="customize.cenario">
+                <a [routerLink]="['/cenario', customize.cenario?.id]">{{customize.cenario?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'customize/'+ customize.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,35 @@
+
+<div *ngIf="cenario">
+    <h2><span jhiTranslate="itgmApp.cenario.detail.title">Cenario</span> {{cenario.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="itgmApp.cenario.nome">Nome</span></dt>
+        <dd>
+            <span>{{cenario.nome}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.cenario.caminho">Caminho</span></dt>
+        <dd>
+            <span>{{cenario.caminho}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.cenario.projeto">Projeto</span></dt>
+        <dd>
+            <div *ngIf="cenario.projeto">
+                <a [routerLink]="['/projeto', cenario.projeto?.id]">{{cenario.projeto?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'cenario/'+ cenario.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

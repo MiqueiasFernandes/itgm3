@@ -1,0 +1,83 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCustomizeLabel" jhiTranslate="itgmApp.customize.home.createOrEditLabel">Create or edit a Customize</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!customize.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="customize.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.customize.sidebar" for="field_sidebar">Sidebar</label>
+            <input type="checkbox" class="form-control" name="sidebar" id="field_sidebar"
+                [(ngModel)]="customize.sidebar"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.customize.color" for="field_color">Color</label>
+            <input type="text" class="form-control" name="color" id="field_color"
+                [(ngModel)]="customize.color"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.customize.avatar" for="field_avatar">Avatar</label>
+            <div>
+                <img [src]="'data:' + customize.avatarContentType + ';base64,' + customize.avatar" style="max-height: 100px;" *ngIf="customize.avatar" alt="customize image"/>
+                <div *ngIf="customize.avatar" class="form-text text-danger clearfix">
+                    <span class="pull-left">{{customize.avatarContentType}}, {{byteSize(customize.avatar)}}</span>
+                    <button type="button" (click)="customize.avatar=null;customize.avatarContentType=null;"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <input type="file" (change)="setFileData($event, customize, 'avatar', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+            </div>
+            <input type="hidden" class="form-control" name="avatar" id="field_avatar"
+                [(ngModel)]="customize.avatar"
+             />
+            <input type="hidden" class="form-control" name="avatarContentType" id="field_avatarContentType"
+                [(ngModel)]="customize.avatarContentType" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.customize.desktop" for="field_desktop">Desktop</label>
+            <input type="text" class="form-control" name="desktop" id="field_desktop"
+                [(ngModel)]="customize.desktop"
+             />
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="itgmApp.customize.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="customize.user" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === customize.user?.id ? customize.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="itgmApp.customize.projeto" for="field_projeto">Projeto</label>
+            <select class="form-control" id="field_projeto" name="projeto" [(ngModel)]="customize.projeto">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="projetoOption.id === customize.projeto?.id ? customize.projeto : projetoOption" *ngFor="let projetoOption of projetos; trackBy: trackProjetoById">{{projetoOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="itgmApp.customize.cenario" for="field_cenario">Cenario</label>
+            <select class="form-control" id="field_cenario" name="cenario" [(ngModel)]="customize.cenario">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="cenarioOption.id === customize.cenario?.id ? customize.cenario : cenarioOption" *ngFor="let cenarioOption of cenarios; trackBy: trackCenarioById">{{cenarioOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

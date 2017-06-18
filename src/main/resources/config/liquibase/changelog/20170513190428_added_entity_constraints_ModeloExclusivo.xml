@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity ModeloExclusivo.
+    -->
+    <changeSet id="20170513190428-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="modelo_id"
+                                 baseTableName="modelo_exclusivo"
+                                 constraintName="fk_modelo_exclusivo_modelo_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="modelo"/>
+
+        <addForeignKeyConstraint baseColumnNames="cenario_id"
+                                 baseTableName="modelo_exclusivo"
+                                 constraintName="fk_modelo_exclusivo_cenario_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="cenario"/>
+
+    </changeSet>
+</databaseChangeLog>

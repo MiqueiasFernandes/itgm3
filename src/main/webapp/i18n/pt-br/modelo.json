@@ -1,0 +1,31 @@
+{
+    "itgmApp": {
+        "modelo" : {
+            "home": {
+                "title": "Modelos",
+                "createLabel": "Criar novo Modelo",
+                "createOrEditLabel": "Criar ou editar Modelo",
+                "search": "Pesquisar por Modelo"
+            },
+            "created": "Um novo Modelo é criado com o identificador {{ param }}",
+            "updated": "Um Modelo é atualizado com o identificador {{ param }}",
+            "deleted": "Um Modelo é deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Modelo {{ id }}?"
+            },
+            "detail": {
+                "title": "Modelo"
+            },
+            "nome": "Nome",
+            "cor": "Cor",
+            "formula": "Formula",
+            "funcao": "Funcao",
+            "variaveis": "Variaveis",
+            "palpite": "Palpite",
+            "parametros": "Parametros",
+            "requires": "Requires",
+            "codigo": "Codigo",
+            "user": "User"
+        }
+    }
+}

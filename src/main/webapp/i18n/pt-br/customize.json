@@ -1,0 +1,28 @@
+{
+    "itgmApp": {
+        "customize" : {
+            "home": {
+                "title": "Customizes",
+                "createLabel": "Criar novo Customize",
+                "createOrEditLabel": "Criar ou editar Customize",
+                "search": "Pesquisar por Customize"
+            },
+            "created": "Um novo Customize é criado com o identificador {{ param }}",
+            "updated": "Um Customize é atualizado com o identificador {{ param }}",
+            "deleted": "Um Customize é deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Customize {{ id }}?"
+            },
+            "detail": {
+                "title": "Customize"
+            },
+            "sidebar": "Sidebar",
+            "color": "Color",
+            "avatar": "Avatar",
+            "desktop": "Desktop",
+            "user": "User",
+            "projeto": "Projeto",
+            "cenario": "Cenario"
+        }
+    }
+}

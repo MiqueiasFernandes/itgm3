@@ -23,6 +23,10 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
+import { FabAddComponent } from './layouts/fab-add/fab-add.component';
+import { ShareComponent } from './layouts/share/share.component';
+import { SidebarComponent } from './layouts/sidebar/sidebar.component';
+import { FolderComponent } from './layouts/sidebar/folder/folder.component';
 
 @NgModule({
     imports: [
@@ -41,7 +45,11 @@ import {
         ErrorComponent,
         PageRibbonComponent,
         ActiveMenuDirective,
-        FooterComponent
+        FooterComponent,
+        FabAddComponent,
+        ShareComponent,
+        SidebarComponent,
+        FolderComponent
     ],
     providers: [
         ProfileService,

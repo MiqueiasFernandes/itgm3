@@ -1,0 +1,28 @@
+{
+    "itgmApp": {
+        "compartilhar" : {
+            "home": {
+                "title": "Compartilhars",
+                "createLabel": "Criar novo Compartilhar",
+                "createOrEditLabel": "Criar ou editar Compartilhar",
+                "search": "Pesquisar por Compartilhar"
+            },
+            "created": "Um novo Compartilhar é criado com o identificador {{ param }}",
+            "updated": "Um Compartilhar é atualizado com o identificador {{ param }}",
+            "deleted": "Um Compartilhar é deletado com o identificador {{ param }}",
+            "delete": {
+                "question": "Tem certeza de que deseja excluir Compartilhar {{ id }}?"
+            },
+            "detail": {
+                "title": "Compartilhar"
+            },
+            "tipo": "Tipo",
+            "mensagem": "Mensagem",
+            "codigo": "Codigo",
+            "nome": "Nome",
+            "status": "Status",
+            "remetente": "Remetente",
+            "destinatario": "Destinatario"
+        }
+    }
+}

@@ -1,0 +1,91 @@
+
+<div *ngIf="card">
+    <h2><span jhiTranslate="itgmApp.card.detail.title">Card</span> {{card.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="itgmApp.card.nome">Nome</span></dt>
+        <dd>
+            <span>{{card.nome}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.url">Url</span></dt>
+        <dd>
+            <span>{{card.url}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.https">Https</span></dt>
+        <dd>
+            <span>{{card.https}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.meta">Meta</span></dt>
+        <dd>
+            <span>{{card.meta}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.previa">Previa</span></dt>
+        <dd>
+            <span>{{card.previa}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.disposicao">Disposicao</span></dt>
+        <dd>
+            <span>{{card.disposicao}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.tipo">Tipo</span></dt>
+        <dd>
+            <span>{{card.tipo}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.linha">Linha</span></dt>
+        <dd>
+            <span>{{card.linha}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.coluna">Coluna</span></dt>
+        <dd>
+            <span>{{card.coluna}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.modo">Modo</span></dt>
+        <dd>
+            <span>{{card.modo}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.caminho">Caminho</span></dt>
+        <dd>
+            <span>{{card.caminho}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.arquivo">Arquivo</span></dt>
+        <dd>
+            <span>{{card.arquivo}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.extensao">Extensao</span></dt>
+        <dd>
+            <span>{{card.extensao}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.largura">Largura</span></dt>
+        <dd>
+            <span>{{card.largura}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.classe">Classe</span></dt>
+        <dd>
+            <span>{{card.classe}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.codigo">Codigo</span></dt>
+        <dd>
+            <span>{{card.codigo}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.card.cenario">Cenario</span></dt>
+        <dd>
+            <div *ngIf="card.cenario">
+                <a [routerLink]="['/cenario', card.cenario?.id]">{{card.cenario?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'card/'+ card.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

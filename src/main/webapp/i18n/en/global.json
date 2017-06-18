@@ -7,6 +7,15 @@
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",
+                "projeto": "Projeto",
+                "cenario": "Cenario",
+                "base": "Base",
+                "customize": "Customize",
+                "modelo": "Modelo",
+                "modeloExclusivo": "Modelo Exclusivo",
+                "card": "Card",
+                "compartilhar": "Compartilhar",
+                "terminal": "Terminal",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

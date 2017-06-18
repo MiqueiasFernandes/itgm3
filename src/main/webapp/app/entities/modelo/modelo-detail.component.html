@@ -1,0 +1,61 @@
+
+<div *ngIf="modelo">
+    <h2><span jhiTranslate="itgmApp.modelo.detail.title">Modelo</span> {{modelo.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="itgmApp.modelo.nome">Nome</span></dt>
+        <dd>
+            <span>{{modelo.nome}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.modelo.cor">Cor</span></dt>
+        <dd>
+            <span>{{modelo.cor}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.modelo.formula">Formula</span></dt>
+        <dd>
+            <span>{{modelo.formula}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.modelo.funcao">Funcao</span></dt>
+        <dd>
+            <span>{{modelo.funcao}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.modelo.variaveis">Variaveis</span></dt>
+        <dd>
+            <span>{{modelo.variaveis}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.modelo.palpite">Palpite</span></dt>
+        <dd>
+            <span>{{modelo.palpite}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.modelo.parametros">Parametros</span></dt>
+        <dd>
+            <span>{{modelo.parametros}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.modelo.requires">Requires</span></dt>
+        <dd>
+            <span>{{modelo.requires}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.modelo.codigo">Codigo</span></dt>
+        <dd>
+            <span>{{modelo.codigo}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.modelo.user">User</span></dt>
+        <dd>
+            {{modelo.user?.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'modelo/'+ modelo.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

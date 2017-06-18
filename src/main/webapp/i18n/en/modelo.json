@@ -1,0 +1,31 @@
+{
+    "itgmApp": {
+        "modelo" : {
+            "home": {
+                "title": "Modelos",
+                "createLabel": "Create a new Modelo",
+                "createOrEditLabel": "Create or edit a Modelo",
+                "search": "Search for Modelo"
+            },
+            "created": "A new Modelo is created with identifier {{ param }}",
+            "updated": "A Modelo is updated with identifier {{ param }}",
+            "deleted": "A Modelo is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Modelo {{ id }}?"
+            },
+            "detail": {
+                "title": "Modelo"
+            },
+            "nome": "Nome",
+            "cor": "Cor",
+            "formula": "Formula",
+            "funcao": "Funcao",
+            "variaveis": "Variaveis",
+            "palpite": "Palpite",
+            "parametros": "Parametros",
+            "requires": "Requires",
+            "codigo": "Codigo",
+            "user": "User"
+        }
+    }
+}

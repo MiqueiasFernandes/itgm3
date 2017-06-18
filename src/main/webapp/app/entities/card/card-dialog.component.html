@@ -1,0 +1,128 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myCardLabel" jhiTranslate="itgmApp.card.home.createOrEditLabel">Create or edit a Card</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!card.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="card.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.nome" for="field_nome">Nome</label>
+            <input type="text" class="form-control" name="nome" id="field_nome"
+                [(ngModel)]="card.nome"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.url" for="field_url">Url</label>
+            <input type="text" class="form-control" name="url" id="field_url"
+                [(ngModel)]="card.url"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.https" for="field_https">Https</label>
+            <input type="checkbox" class="form-control" name="https" id="field_https"
+                [(ngModel)]="card.https"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.meta" for="field_meta">Meta</label>
+            <input type="text" class="form-control" name="meta" id="field_meta"
+                [(ngModel)]="card.meta"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.previa" for="field_previa">Previa</label>
+            <input type="text" class="form-control" name="previa" id="field_previa"
+                [(ngModel)]="card.previa"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.disposicao" for="field_disposicao">Disposicao</label>
+            <input type="text" class="form-control" name="disposicao" id="field_disposicao"
+                [(ngModel)]="card.disposicao"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.tipo" for="field_tipo">Tipo</label>
+            <input type="number" class="form-control" name="tipo" id="field_tipo"
+                [(ngModel)]="card.tipo"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.linha" for="field_linha">Linha</label>
+            <input type="number" class="form-control" name="linha" id="field_linha"
+                [(ngModel)]="card.linha"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.coluna" for="field_coluna">Coluna</label>
+            <input type="number" class="form-control" name="coluna" id="field_coluna"
+                [(ngModel)]="card.coluna"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.modo" for="field_modo">Modo</label>
+            <input type="text" class="form-control" name="modo" id="field_modo"
+                [(ngModel)]="card.modo"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.caminho" for="field_caminho">Caminho</label>
+            <input type="text" class="form-control" name="caminho" id="field_caminho"
+                [(ngModel)]="card.caminho"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.arquivo" for="field_arquivo">Arquivo</label>
+            <input type="text" class="form-control" name="arquivo" id="field_arquivo"
+                [(ngModel)]="card.arquivo"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.extensao" for="field_extensao">Extensao</label>
+            <input type="text" class="form-control" name="extensao" id="field_extensao"
+                [(ngModel)]="card.extensao"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.largura" for="field_largura">Largura</label>
+            <input type="number" class="form-control" name="largura" id="field_largura"
+                [(ngModel)]="card.largura"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.classe" for="field_classe">Classe</label>
+            <input type="text" class="form-control" name="classe" id="field_classe"
+                [(ngModel)]="card.classe"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.card.codigo" for="field_codigo">Codigo</label>
+            <input type="text" class="form-control" name="codigo" id="field_codigo"
+                [(ngModel)]="card.codigo"
+             />
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="itgmApp.card.cenario" for="field_cenario">Cenario</label>
+            <select class="form-control" id="field_cenario" name="cenario" [(ngModel)]="card.cenario" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="cenarioOption.id === card.cenario?.id ? card.cenario : cenarioOption" *ngFor="let cenarioOption of cenarios; trackBy: trackCenarioById">{{cenarioOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

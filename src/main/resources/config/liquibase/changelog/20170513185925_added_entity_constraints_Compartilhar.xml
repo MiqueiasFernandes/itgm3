@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Compartilhar.
+    -->
+    <changeSet id="20170513185925-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="remetente_id"
+                                 baseTableName="compartilhar"
+                                 constraintName="fk_compartilhar_remetente_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="destinatario_id"
+                                 baseTableName="compartilhar"
+                                 constraintName="fk_compartilhar_destinatario_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+    </changeSet>
+</databaseChangeLog>

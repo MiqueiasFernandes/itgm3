@@ -1,0 +1,35 @@
+
+<div *ngIf="base">
+    <h2><span jhiTranslate="itgmApp.base.detail.title">Base</span> {{base.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="itgmApp.base.nome">Nome</span></dt>
+        <dd>
+            <span>{{base.nome}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.base.local">Local</span></dt>
+        <dd>
+            <span>{{base.local}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.base.projeto">Projeto</span></dt>
+        <dd>
+            <div *ngIf="base.projeto">
+                <a [routerLink]="['/projeto', base.projeto?.id]">{{base.projeto?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'base/'+ base.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
