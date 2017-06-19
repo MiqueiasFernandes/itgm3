@@ -3,6 +3,8 @@ import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/ht
 import { Observable } from 'rxjs/Rx';
 
 import { Cenario } from './cenario.model';
+import { Projeto } from '../index';
+
 @Injectable()
 export class CenarioService {
 
@@ -61,5 +63,42 @@ export class CenarioService {
             options.search = params;
         }
         return options;
+    }
+
+    public getCenariosByProjeto(projeto: Projeto): Observable<Cenario[]> {
+        return this.query({
+            page: 0,
+            size: 100,
+            sort: ['id']
+        }).map(
+            (res: Response) => {
+                if (!projeto) {
+                    return [];
+                }
+                const cens: Cenario[] = res.json();
+                const cenarios: Cenario[] = [];
+                cens.forEach((cenario) => {
+                    if (cenario.projeto.id === projeto.id) {
+                        cenarios.push(cenario);
+                    }
+                });
+                return cenarios;
+            });
+    }
+
+    public listFiles(cenario: Cenario): Observable<string> {
+        return this.http.get(`${this.resourceUrl}/listar/${cenario.id}`)
+            .map((res) => res.json().files);
+    }
+
+    public publicarArquivo(cenario: Cenario, path: string, file: string, getText: boolean, isImage: boolean): Observable<any> {
+        if (getText) {
+            const caminho = cenario.caminho.endsWith('/') ? cenario.caminho : (cenario.caminho + '/');
+            return this.http.get(`${this.resourceUrl}/publicar/-1/?path=${path}&file=${caminho + '*/' + file}&meta=false&image=false`)
+                .map((res) => res.json()); ////removido .file
+        } else {
+            return this.http.get(`${this.resourceUrl}/publicar/${cenario.id}/?path=${path}&file=${file}&meta=true&image=${isImage}`)
+                .map((res) => res.json()); ////removido .file
+        }
     }
 }

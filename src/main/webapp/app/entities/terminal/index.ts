@@ -6,3 +6,4 @@ export * from './terminal-delete-dialog.component';
 export * from './terminal-detail.component';
 export * from './terminal.component';
 export * from './terminal.route';
+export * from './fab-add-terminal/fab-add-terminal.component';

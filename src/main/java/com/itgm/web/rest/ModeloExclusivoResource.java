@@ -2,9 +2,10 @@ package com.itgm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.itgm.domain.ModeloExclusivo;
+import com.itgm.repository.search.ModeloExclusivoSearchRepository;
 
 import com.itgm.repository.ModeloExclusivoRepository;
-import com.itgm.repository.search.ModeloExclusivoSearchRepository;
+import com.itgm.security.SecurityUtils;
 import com.itgm.web.rest.util.HeaderUtil;
 import com.itgm.web.rest.util.PaginationUtil;
 import io.swagger.annotations.ApiParam;
@@ -37,7 +38,7 @@ public class ModeloExclusivoResource {
     private final Logger log = LoggerFactory.getLogger(ModeloExclusivoResource.class);
 
     private static final String ENTITY_NAME = "modeloExclusivo";
-        
+
     private final ModeloExclusivoRepository modeloExclusivoRepository;
 
     private final ModeloExclusivoSearchRepository modeloExclusivoSearchRepository;
@@ -101,7 +102,13 @@ public class ModeloExclusivoResource {
     @Timed
     public ResponseEntity<List<ModeloExclusivo>> getAllModeloExclusivos(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of ModeloExclusivos");
-        Page<ModeloExclusivo> page = modeloExclusivoRepository.findAll(pageable);
+        Page<ModeloExclusivo> page;
+
+        if(SecurityUtils.isCurrentUserInRole("ROLE_ADMIN"))
+            page = modeloExclusivoRepository.findAll(pageable);
+        else
+            page = modeloExclusivoRepository.findByUserIsCurrentUser(pageable);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/modelo-exclusivos");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -139,7 +146,7 @@ public class ModeloExclusivoResource {
      * SEARCH  /_search/modelo-exclusivos?query=:query : search for the modeloExclusivo corresponding
      * to the query.
      *
-     * @param query the query of the modeloExclusivo search 
+     * @param query the query of the modeloExclusivo search
      * @param pageable the pagination information
      * @return the result of the search
      */

@@ -2,9 +2,10 @@ package com.itgm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.itgm.domain.Customize;
+import com.itgm.repository.search.CustomizeSearchRepository;
 
 import com.itgm.repository.CustomizeRepository;
-import com.itgm.repository.search.CustomizeSearchRepository;
+import com.itgm.security.SecurityUtils;
 import com.itgm.web.rest.util.HeaderUtil;
 import com.itgm.web.rest.util.PaginationUtil;
 import io.swagger.annotations.ApiParam;
@@ -37,7 +38,7 @@ public class CustomizeResource {
     private final Logger log = LoggerFactory.getLogger(CustomizeResource.class);
 
     private static final String ENTITY_NAME = "customize";
-        
+
     private final CustomizeRepository customizeRepository;
 
     private final CustomizeSearchRepository customizeSearchRepository;
@@ -101,7 +102,13 @@ public class CustomizeResource {
     @Timed
     public ResponseEntity<List<Customize>> getAllCustomizes(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Customizes");
-        Page<Customize> page = customizeRepository.findAll(pageable);
+        Page<Customize> page;
+
+        if(pageable.getPageSize() < 2 || !SecurityUtils.isCurrentUserInRole("ROLE_ADMIN"))
+            page = customizeRepository.findByUserIsCurrentUser(pageable);
+        else
+            page = customizeRepository.findAll(pageable);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/customizes");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -139,7 +146,7 @@ public class CustomizeResource {
      * SEARCH  /_search/customizes?query=:query : search for the customize corresponding
      * to the query.
      *
-     * @param query the query of the customize search 
+     * @param query the query of the customize search
      * @param pageable the pagination information
      * @return the result of the search
      */

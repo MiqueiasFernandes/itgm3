@@ -1,0 +1,153 @@
+//@import "../../../content/scss/global.scss";
+
+.sidebar {
+    margin-top: 60px;
+    z-index: 1000;
+    position: fixed;
+    margin-left: - 300px;// $sideWidth;
+    width: 0;
+    height: 100%;
+    overflow-y: hidden;
+    background: #353d47;
+    opacity: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    display: inline-block;
+    height: calc(100vh - 60px);
+    overflow-x: auto;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .user-info {
+    padding: 13px 15px 12px 15px;
+    white-space: nowrap;
+    position: relative;
+    border-bottom: 1px solid  #6c6c6c;
+    background-image: url(../../../content/images/backinfo.png);
+    background-size: cover;
+    height: 140px;
+}
+
+.sidebar .user-info .image img {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    vertical-align: bottom !important;
+}
+
+.sidebar .user-info .info-container {
+    cursor: default;
+    display: block;
+    position: relative;
+    top: 25px;
+}
+
+.sidebar .user-info .info-container .name {
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 14px;
+    max-width: 200px;
+    color: #fff;
+}
+
+.sidebar .user-info .info-container .email {
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 12px;
+    max-width: 200px;
+    color: #fff;
+}
+
+
+.sidebar .user-info .info-container .fixSidebar {
+    position: absolute;
+    right: -3px;
+    bottom: -12px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -ms-box-shadow: none;
+    box-shadow: none;
+    cursor: pointer;
+    color: #fff;
+}
+
+
+.sidebar .menu {
+    position: relative;
+    overflow-y: auto;
+    height: calc(100vh - 270px);
+}
+
+.sidebar .menu .list {
+    list-style: none;
+    padding-left: 0;
+    cursor: pointer;
+}
+
+.sidebar .menu .level1{
+    font-weight: 900;
+}
+
+.sidebar .menu li{
+    color: white;
+    padding: 15px;
+}
+
+.sidebar .menu .nivel1:hover{
+    background: darkslategrey;
+}
+
+.sidebar .menu .ativo {
+    background: darkslategrey;
+    font-weight: bold;
+}
+
+.sidebar .menu .nivel2:hover {
+    background: black;
+}
+.sidebar .menu .nivel2{
+    font-weight: normal;
+}
+
+.sidebar .menu .list .header {
+    background: #006958;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 16px;
+    color: white;
+}
+
+
+.sidebar .footer {
+    display: inherit;
+    background-color: #fff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding: 15px;
+    overflow: hidden;
+    height: 70px;
+}
+
+.right{
+    float: right;
+}
+
+.trash{
+    float: right;
+    margin-top: 1%;
+}
+
+.lista {
+    margin-top: 5px;
+}

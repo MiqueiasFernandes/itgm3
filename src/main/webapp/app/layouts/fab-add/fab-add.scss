@@ -1,0 +1,77 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 07/04/2017, 09:28:09
+    Author     : mfernandes
+*/
+
+#fab{
+z-index: 1000;
+position: fixed;
+right: 20px;
+bottom: 20px;
+text-align: center;
+justify-content: center;
+cursor: pointer;
+transition: all 0.3s ease;
+background-color: transparent;
+}
+
+#fab-btn{
+border-radius: 50%;
+width: 60px;
+height: 60px;
+font-size: 2em;
+transition: all 0.3s ease;
+background-color: #29c75f;
+box-shadow: 0 1px 3px #29c75f;
+color: white;
+border: 0;
+}
+
+#fab-btn:hover {
+    padding-bottom: 5px;
+}
+
+
+
+
+#fab-menu{
+border-radius: 3%;
+transition: all 0.3s ease;
+background-color: #29c75f;
+box-shadow: 0 1px 3px #29c75f;
+color: white;
+}
+
+
+#fab #fab-menu ul.actions {
+    list-style: none;
+    display: table-row;
+}
+
+#fab #fab-menu li{
+color: #FFF;
+text-decoration: none;
+padding: 10px 20px;
+border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+/*text-transform: uppercase;*/
+font-size: 0.9em;
+}
+
+#fab #fab-menu li:hover{
+background-color: rgba(255, 255, 255, 0.1);
+}
+
+.invisivel{
+width: 0px;
+height: 0px;
+padding: 0;
+margin: 0;
+display: none;
+transition: all 0.3s ease;
+}
+

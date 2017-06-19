@@ -1,3 +1,28 @@
-<p>
-  selecionar-projeto works!
-</p>
+<div class="modal-header">
+    <h4 class="modal-title">Selecionar Projeto</h4>
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="close()"><span aria-hidden="true">x</span>
+    </button>
+</div>
+<div class="modal-body">
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="dropdown pointer">
+                Projeto:
+                <button class="btn btn-default" type="button" (click)="toogleDropdown()">
+                    {{titulo}}
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu" (click)="toogleDropdown()" [ngClass]="{visivel: visivel}">
+                    <li *ngFor="let projeto of projetos ;trackBy: trackId" class="dropdown-item" (click)="selecionar(projeto)">
+                        <div>{{projeto.nome}}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button (click)="adicionarProjeto()" class="btn btn-success">Novo</button>
+    <button (click)="alterarProjeto()" class="btn btn-primary">Feito</button>
+</div>

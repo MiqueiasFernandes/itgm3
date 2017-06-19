@@ -44,6 +44,8 @@ const ENTITY_STATES = [
         CenarioPopupComponent,
         CenarioDeleteDialogComponent,
         CenarioDeletePopupComponent,
+        FabAddCenarioComponent,
+        SelecionarCenarioComponent
     ],
     providers: [
         CenarioService,

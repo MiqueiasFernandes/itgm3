@@ -2,9 +2,10 @@ package com.itgm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.itgm.domain.Projeto;
+import com.itgm.repository.search.ProjetoSearchRepository;
 
 import com.itgm.repository.ProjetoRepository;
-import com.itgm.repository.search.ProjetoSearchRepository;
+import com.itgm.security.SecurityUtils;
 import com.itgm.web.rest.util.HeaderUtil;
 import com.itgm.web.rest.util.PaginationUtil;
 import io.swagger.annotations.ApiParam;
@@ -27,6 +28,8 @@ import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
+import com.itgm.service.jriaccess.Itgmrest;
+
 /**
  * REST controller for managing Projeto.
  */
@@ -37,7 +40,7 @@ public class ProjetoResource {
     private final Logger log = LoggerFactory.getLogger(ProjetoResource.class);
 
     private static final String ENTITY_NAME = "projeto";
-        
+
     private final ProjetoRepository projetoRepository;
 
     private final ProjetoSearchRepository projetoSearchRepository;
@@ -61,7 +64,24 @@ public class ProjetoResource {
         if (projeto.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new projeto cannot already have an ID")).body(null);
         }
+
+        if (projeto.getUser() == null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "invaliduser", "Informe o usuario para criar o novo projeto.")).body(null);
+        }
+
         Projeto result = projetoRepository.save(projeto);
+
+        if (Itgmrest.createNew(result.getUser(), result.getNome(), "*", "*", null, result.toString())) {
+            String codname = Itgmrest.getCodNome(result.getUser());
+            if (((String) Itgmrest.listFiles(codname + "/*/*/*"))
+                .contains(codname + "/" + result.getNome() + "/" + ".info")) {
+                result.setCaminho(codname + "/" + result.getNome() + "/");
+                result.setArquivos(Itgmrest.listFiles(codname + "/" + result.getNome() + "/*/*"));
+                result = updateProjeto(result).getBody();
+            } else {
+                return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "ITGMRestfalhou", "Erro ao tentar criar novo projeto.")).body(null);
+            }
+        }
         projetoSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/projetos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -101,7 +121,13 @@ public class ProjetoResource {
     @Timed
     public ResponseEntity<List<Projeto>> getAllProjetos(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Projetos");
-        Page<Projeto> page = projetoRepository.findAll(pageable);
+        Page<Projeto> page;
+
+        if(SecurityUtils.isCurrentUserInRole("ROLE_ADMIN"))
+            page = projetoRepository.findAll(pageable);
+        else
+            page = projetoRepository.findByUserIsCurrentUser(pageable);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/projetos");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -130,6 +156,14 @@ public class ProjetoResource {
     @Timed
     public ResponseEntity<Void> deleteProjeto(@PathVariable Long id) {
         log.debug("REST request to delete Projeto : {}", id);
+        Projeto projeto = getProjeto(id).getBody();
+        Itgmrest.removeDIR(
+            Itgmrest.getCodNome(projeto.getUser()),
+            projeto.getNome(),
+            null,
+            null,
+            null,
+            null);
         projetoRepository.delete(id);
         projetoSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
@@ -139,7 +173,7 @@ public class ProjetoResource {
      * SEARCH  /_search/projetos?query=:query : search for the projeto corresponding
      * to the query.
      *
-     * @param query the query of the projeto search 
+     * @param query the query of the projeto search
      * @param pageable the pagination information
      * @return the result of the search
      */

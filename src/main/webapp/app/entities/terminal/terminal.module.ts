@@ -42,6 +42,7 @@ const ENTITY_STATES = [
         TerminalPopupComponent,
         TerminalDeleteDialogComponent,
         TerminalDeletePopupComponent,
+        FabAddTerminalComponent,
     ],
     providers: [
         TerminalService,

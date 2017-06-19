@@ -1,0 +1,117 @@
+<div>
+    <h2>
+        <span jhiTranslate="itgmApp.prognose.home.title">Prognoses</span>
+        <button class="btn btn-primary float-right create-prognose" [routerLink]="['/', { outlets: { popup: ['prognose-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="itgmApp.prognose.home.createLabel">
+            Create new Prognose
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12 no-padding-right">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'itgmApp.prognose.home.search' | translate }}">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="prognoses">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="nome"><span jhiTranslate="itgmApp.prognose.nome">Nome</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="caminho"><span jhiTranslate="itgmApp.prognose.caminho">Caminho</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="mapeamento"><span jhiTranslate="itgmApp.prognose.mapeamento">Mapeamento</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="salvar"><span jhiTranslate="itgmApp.prognose.salvar">Salvar</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="graficos"><span jhiTranslate="itgmApp.prognose.graficos">Graficos</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="estatisticas"><span jhiTranslate="itgmApp.prognose.estatisticas">Estatisticas</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="forcepredict"><span jhiTranslate="itgmApp.prognose.forcepredict">Forcepredict</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dividir"><span jhiTranslate="itgmApp.prognose.dividir">Dividir</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="agrupar"><span jhiTranslate="itgmApp.prognose.agrupar">Agrupar</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="treino"><span jhiTranslate="itgmApp.prognose.treino">Treino</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="fncalculavolume"><span jhiTranslate="itgmApp.prognose.fncalculavolume">Fncalculavolume</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="status"><span jhiTranslate="itgmApp.prognose.status">Status</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="ajuste.id"><span jhiTranslate="itgmApp.prognose.ajuste">Ajuste</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="validacao.id"><span jhiTranslate="itgmApp.prognose.validacao">Validacao</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="modeloExclusivo.id"><span jhiTranslate="itgmApp.prognose.modeloExclusivo">Modelo Exclusivo</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let prognose of prognoses ;trackBy: trackId">
+                <td><a [routerLink]="['../prognose', prognose.id ]">{{prognose.id}}</a></td>
+                <td>{{prognose.nome}}</td>
+                <td>{{prognose.caminho}}</td>
+                <td>{{prognose.mapeamento}}</td>
+                <td>{{prognose.salvar}}</td>
+                <td>{{prognose.graficos}}</td>
+                <td>{{prognose.estatisticas}}</td>
+                <td>{{prognose.forcepredict}}</td>
+                <td>{{prognose.dividir}}</td>
+                <td>{{prognose.agrupar}}</td>
+                <td>{{prognose.treino}}</td>
+                <td>{{prognose.fncalculavolume}}</td>
+                <td>{{prognose.status}}</td>
+                <td>
+                    <div *ngIf="prognose.ajuste">
+                        <a [routerLink]="['../base', prognose.ajuste?.id ]" >{{prognose.ajuste?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="prognose.validacao">
+                        <a [routerLink]="['../base', prognose.validacao?.id ]" >{{prognose.validacao?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="prognose.modeloExclusivo">
+                        <a [routerLink]="['../modelo-exclusivo', prognose.modeloExclusivo?.id ]" >{{prognose.modeloExclusivo?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../prognose', prognose.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'prognose/'+ prognose.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'prognose/'+ prognose.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+        <div *ngIf="prognoses && prognoses.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+</div>

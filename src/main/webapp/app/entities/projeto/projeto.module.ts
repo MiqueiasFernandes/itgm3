@@ -46,6 +46,8 @@ const ENTITY_STATES = [
         ProjetoPopupComponent,
         ProjetoDeleteDialogComponent,
         ProjetoDeletePopupComponent,
+        FabAddProjetoComponent,
+        SelecionarProjetoComponent
     ],
     providers: [
         ProjetoService,

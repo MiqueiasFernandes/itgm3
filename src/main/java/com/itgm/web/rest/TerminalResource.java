@@ -1,10 +1,13 @@
 package com.itgm.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.itgm.domain.Cenario;
 import com.itgm.domain.Terminal;
+import com.itgm.repository.search.TerminalSearchRepository;
 
 import com.itgm.repository.TerminalRepository;
-import com.itgm.repository.search.TerminalSearchRepository;
+import com.itgm.security.SecurityUtils;
+import com.itgm.service.jriaccess.Itgmrest;
 import com.itgm.web.rest.util.HeaderUtil;
 import com.itgm.web.rest.util.PaginationUtil;
 import io.swagger.annotations.ApiParam;
@@ -37,7 +40,7 @@ public class TerminalResource {
     private final Logger log = LoggerFactory.getLogger(TerminalResource.class);
 
     private static final String ENTITY_NAME = "terminal";
-        
+
     private final TerminalRepository terminalRepository;
 
     private final TerminalSearchRepository terminalSearchRepository;
@@ -61,6 +64,21 @@ public class TerminalResource {
         if (terminal.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new terminal cannot already have an ID")).body(null);
         }
+        Cenario cenario = terminal.getCenario();
+        String token =  Itgmrest.getToken(
+            cenario.getProjeto().getUser().getLogin(),
+            cenario.getProjeto().getNome(),
+            cenario.getNome(),
+            terminal.getNome(),
+            new String[]{"LIVE", "log.txt", "DEBUG", "--vanilla"},
+            100,
+            100,
+            100,
+            true,
+            "null"
+        );
+
+        terminal.setUrl(token);
         Terminal result = terminalRepository.save(terminal);
         terminalSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/terminals/" + result.getId()))
@@ -101,7 +119,13 @@ public class TerminalResource {
     @Timed
     public ResponseEntity<List<Terminal>> getAllTerminals(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Terminals");
-        Page<Terminal> page = terminalRepository.findAll(pageable);
+        Page<Terminal> page;
+
+        if(SecurityUtils.isCurrentUserInRole("ROLE_ADMIN"))
+            page = terminalRepository.findAll(pageable);
+        else
+            page = terminalRepository.findByUserIsCurrentUser(pageable);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/terminals");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -139,7 +163,7 @@ public class TerminalResource {
      * SEARCH  /_search/terminals?query=:query : search for the terminal corresponding
      * to the query.
      *
-     * @param query the query of the terminal search 
+     * @param query the query of the terminal search
      * @param pageable the pagination information
      * @return the result of the search
      */

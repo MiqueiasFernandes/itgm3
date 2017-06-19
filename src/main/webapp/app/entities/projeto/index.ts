@@ -6,3 +6,5 @@ export * from './projeto-delete-dialog.component';
 export * from './projeto-detail.component';
 export * from './projeto.component';
 export * from './projeto.route';
+export * from './fab-add-projeto/fab-add-projeto.component';
+export * from './selecionar-projeto/selecionar-projeto.component';

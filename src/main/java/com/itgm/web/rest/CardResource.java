@@ -5,6 +5,7 @@ import com.itgm.domain.Card;
 
 import com.itgm.repository.CardRepository;
 import com.itgm.repository.search.CardSearchRepository;
+import com.itgm.security.SecurityUtils;
 import com.itgm.web.rest.util.HeaderUtil;
 import com.itgm.web.rest.util.PaginationUtil;
 import io.swagger.annotations.ApiParam;
@@ -37,7 +38,7 @@ public class CardResource {
     private final Logger log = LoggerFactory.getLogger(CardResource.class);
 
     private static final String ENTITY_NAME = "card";
-        
+
     private final CardRepository cardRepository;
 
     private final CardSearchRepository cardSearchRepository;
@@ -101,7 +102,17 @@ public class CardResource {
     @Timed
     public ResponseEntity<List<Card>> getAllCards(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Cards");
-        Page<Card> page = cardRepository.findAll(pageable);
+        Page<Card> page;
+
+        if(SecurityUtils.isCurrentUserInRole("ROLE_ADMIN")) {
+            if (pageable.getPageSize() == 777)
+                page = cardRepository.findByUserIsCurrentUser(pageable);
+            else
+                page = cardRepository.findAll(pageable);
+        }
+        else
+            page = cardRepository.findByUserIsCurrentUser(pageable);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cards");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -139,7 +150,7 @@ public class CardResource {
      * SEARCH  /_search/cards?query=:query : search for the card corresponding
      * to the query.
      *
-     * @param query the query of the card search 
+     * @param query the query of the card search
      * @param pageable the pagination information
      * @return the result of the search
      */

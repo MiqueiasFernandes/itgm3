@@ -1,0 +1,38 @@
+<div class="modal-header">
+    <h4 class="modal-title">Assistente de avaliação de Modelos</h4>
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="close()"><span aria-hidden="true">x</span>
+    </button>
+</div>
+<div class="modal-body">
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active"><a href="#">Home</a></li>
+                <li role="presentation"><a href="#">Profile</a></li>
+                <li role="presentation"><a href="#">Messages</a></li>
+            </ul>
+
+            <select multiple class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+
+
+            <nav aria-label="...">
+                <ul class="pager">
+                    <li><a href="#">Previous</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
+            </nav>
+
+
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button (click)="adicionarBase()" class="btn btn-primary">Feito</button>
+</div>

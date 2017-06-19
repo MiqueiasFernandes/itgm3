@@ -16,6 +16,7 @@
                 "card": "Card",
                 "compartilhar": "Compartilhar",
                 "terminal": "Terminal",
+                "prognose": "Prognose",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

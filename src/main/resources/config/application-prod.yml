@@ -45,10 +45,16 @@ spring:
             cluster-name:
             cluster-nodes: localhost:9300
     mail:
-        host: localhost
-        port: 25
-        username:
-        password:
+        host: smtp.gmail.com
+        port: 587
+        username: forestgrowthsoftware@gmail.com
+        password: pacotedocran
+        protocol: smtp
+        tls: true
+        properties.mail.smtp:
+            auth: true
+            starttls.enable: true
+            ssl.trust: smtp.gmail.com
     thymeleaf:
         cache: true
 
@@ -73,7 +79,7 @@ liquibase:
 #        keyAlias: itgm
 # ===================================================================
 server:
-    port: 8080
+    port: 80
     compression:
         enabled: true
         mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
@@ -95,8 +101,8 @@ jhipster:
             time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
             max-entries: 1000 # Number of objects in each cache entry
     mail: # specific JHipster mail property, for standard properties see MailProperties
-        from: itgm@localhost
-        base-url: http://my-server-url-to-change # Modify according to your server's URL
+        from: forestgrowthsoftware@gmail.com
+        base-url: http://itgm.mikeias.net # Modify according to your server's URL
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx.enabled: true
         graphite:

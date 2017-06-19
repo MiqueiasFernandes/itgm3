@@ -1,3 +1,58 @@
-<p>
-  fab-add-base works!
-</p>
+<div class="modal-header">
+    <h4 class="modal-title">Adicionar nova Base</h4>
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="close()"><span aria-hidden="true">x</span>
+    </button>
+</div>
+<div class="modal-body">
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="form-group">
+                <label class="form-control-label" for="arquivo" >Arquivo</label>
+
+                <input
+                    [disabled]="onLoad"
+                    (change)="setFile($event)"
+                    type="file"
+                    class="form-control"
+                    id="arquivo"
+                    placeholder="arquivo a importar">
+
+                <label *ngIf="tipo === 1" class="form-control-label" for="delimitador" >Delimitador</label>
+
+                <input
+                    *ngIf="tipo === 1"
+                    id="delimitador"
+                    class="form-control"
+                    type="text"
+                    [(ngModel)]="extra"
+                    [disabled]="onLoad"
+                >
+
+                <div *ngIf="tipo === 2" class="dropdown pointer">
+
+                    <input type="text"
+                           class="form-control"
+                           (click)="toogleDropdown()"
+                           placeholder="variavel"
+                           [(ngModel)]="extra"
+                           [disabled]="onLoad"
+                    >
+
+                    <ul *ngIf="variaveis.length > 0" class="dropdown-menu" [ngClass]="{visivel: visivel}">
+                        <li *ngFor="let variavel of variaveis;" class="dropdown-item">
+                            <div (click)="setVar(variavel)">{{variavel}}</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <img src="../../../../content/images/load.gif" alt="carregando..." [ngClass]="{visivel: onLoad, invisivel: !onLoad}">
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button *ngIf="tipo === 2" (click)="getVariaveis()" class="btn btn-warning">Listar Variaveis</button>
+    <button (click)="adicionarBase()" class="btn btn-primary">adicionar</button>
+</div>

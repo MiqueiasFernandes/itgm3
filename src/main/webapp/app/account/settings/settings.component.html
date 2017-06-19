@@ -72,6 +72,15 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="entidades" jhiTranslate="global.form.enditades">Entidades</label>
+                    <input  type="checkbox" class="form-control" id="entidades"  [checked]="showMenu" (change)="alterarMenu()">
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="image" jhiTranslate="global.form.image">Imagem</label>
+                    <input [ngClass]="{visivel: !onLoad, invisivel: onLoad}" (change)="setFile($event)" type="file" class="form-control" id="image"  placeholder="{{'global.form.image.placeholder' | translate}}">
+                    <img src="../../../content/images/load.gif" alt="carregando..." [ngClass]="{visivel: onLoad, invisivel: !onLoad}">
+                </div>
                 <div class="form-group" *ngIf="languages && languages.length > 0">
                     <label for="langKey" jhiTranslate="settings.form.language">Language</label>
                     <select class="form-control" id="langKey" name="langKey" [(ngModel)]="settingsAccount.langKey">

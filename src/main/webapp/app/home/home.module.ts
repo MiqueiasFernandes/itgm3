@@ -5,6 +5,8 @@ import { ItgmSharedModule } from '../shared';
 
 import { HOME_ROUTE, HomeComponent } from './';
 
+import { HomeService } from './home.service';
+
 @NgModule({
     imports: [
         ItgmSharedModule,
@@ -16,6 +18,7 @@ import { HOME_ROUTE, HomeComponent } from './';
     entryComponents: [
     ],
     providers: [
+        HomeService,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

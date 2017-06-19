@@ -1,3 +1,64 @@
-<p>
-  fab-add-modelo works!
-</p>
+<div class="modal-header">
+    <h4 class="modal-title">Cadastrar modelo {{modelo.nome}}</h4>
+    <button class="btn btn-default" (click)="alterar()">Pelo codigo</button>
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="close()"><span aria-hidden="true">x</span>
+    </button>
+</div>
+<div class="modal-body">
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <textarea
+            *ngIf="peloCodigo"
+            placeholder="insira o código aqui..."
+            class="form-control"
+            [(ngModel)]="modelo.codigo"
+            id="codigo">
+        </textarea>
+        <div class="col-md-8 offset-md-2"  *ngIf="!peloCodigo">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control"  id="nome" placeholder="digite o nome do modelo" [(ngModel)]="modelo.nome">
+            </div>
+
+            <div class="form-group">
+                <label for="cor">Cor</label>
+                <input type="color" class="form-control"  id="cor" [(ngModel)]="modelo.cor">
+            </div>
+
+            <div class="form-group">
+                <label for="formula">Formula</label>
+                <span class="input-group-addon">y2~</span>
+                <input type="text" class="form-control"  id="formula" placeholder="y1+b1" [(ngModel)]="modelo.formula">
+            </div>
+
+            <div class="form-group">
+                <label for="funcao">Funcao</label>
+                <input type="text" class="form-control"  id="funcao" placeholder="nlsLM" [(ngModel)]="modelo.funcao">
+            </div>
+
+            <div class="form-group">
+                <label for="variaveis">Variaveis</label>
+                <input type="text" class="form-control"  id="variaveis" placeholder="idade1,idade2,dap1,dap2" [(ngModel)]="modelo.variaveis">
+            </div>
+
+            <div class="form-group">
+                <label for="palpite">Palpite</label>
+                <input type="text" class="form-control"  id="palpite" placeholder="b1=0.1,b2=0.5" [(ngModel)]="modelo.palpite">
+            </div>
+
+            <div class="form-group">
+                <label for="parametros">Parametros</label>
+                <input type="text" class="form-control"  id="parametros" placeholder="insira parametros requeridos pela função" [(ngModel)]="modelo.parametros">
+            </div>
+
+            <div class="form-group">
+                <label for="requires">Requires</label>
+                <input type="text" class="form-control"  id="requires" placeholder="ITGM,minpack.lm" [(ngModel)]="modelo.requires">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button (click)="limpar()" class="btn btn-danger">Limpar</button>
+    <button (click)="criarModelo()" class="btn btn-primary">Criar</button>
+</div>

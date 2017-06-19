@@ -62,4 +62,16 @@ export class ModeloService {
         }
         return options;
     }
+
+    getAllModelos(): Observable<Modelo[]> {
+        return this.query({
+            page: 0,
+            size: 100,
+            sort: ['id']
+        }).map(
+            (res: Response) => {
+                const modelos: Modelo[] = res.json();
+                return modelos;
+            });
+    }
 }

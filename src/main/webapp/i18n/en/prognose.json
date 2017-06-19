@@ -1,0 +1,36 @@
+{
+    "itgmApp": {
+        "prognose" : {
+            "home": {
+                "title": "Prognoses",
+                "createLabel": "Create a new Prognose",
+                "createOrEditLabel": "Create or edit a Prognose",
+                "search": "Search for Prognose"
+            },
+            "created": "A new Prognose is created with identifier {{ param }}",
+            "updated": "A Prognose is updated with identifier {{ param }}",
+            "deleted": "A Prognose is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Prognose {{ id }}?"
+            },
+            "detail": {
+                "title": "Prognose"
+            },
+            "nome": "Nome",
+            "caminho": "Caminho",
+            "mapeamento": "Mapeamento",
+            "salvar": "Salvar",
+            "graficos": "Graficos",
+            "estatisticas": "Estatisticas",
+            "forcepredict": "Forcepredict",
+            "dividir": "Dividir",
+            "agrupar": "Agrupar",
+            "treino": "Treino",
+            "fncalculavolume": "Fncalculavolume",
+            "status": "Status",
+            "ajuste": "Ajuste",
+            "validacao": "Validacao",
+            "modeloExclusivo": "Modelo Exclusivo"
+        }
+    }
+}

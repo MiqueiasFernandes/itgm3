@@ -1,11 +1,39 @@
 <jhi-page-ribbon></jhi-page-ribbon>
-<div>
-    <router-outlet name="navbar"></router-outlet>
-</div>
-<div class="container-fluid">
-    <div class="card jh-card">
-        <router-outlet></router-outlet>
-        <router-outlet name="popup"></router-outlet>
+<!--<div>-->
+    <!--<router-outlet name="navbar"></router-outlet>-->
+<!--</div>-->
+<!--<div class="container-fluid">-->
+    <!--<div class="card jh-card">-->
+        <!--<router-outlet></router-outlet>-->
+        <!--<router-outlet name="popup"></router-outlet>-->
+    <!--</div>-->
+    <!--<jhi-footer></jhi-footer>-->
+<!--oi-->
+<!--</div>-->
+
+<img src="../../../content/images/ufes.png" class="ufes">
+
+<div id="wrapper" [ngClass]="{'toggled': isSideBarOpen }">
+
+    <jhi-sidebar></jhi-sidebar>
+
+    <div>
+        <router-outlet name="navbar"></router-outlet>
     </div>
-    <jhi-footer></jhi-footer>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper" (click)="closeSidebar()">
+        <div class="container-fluid">
+            <div [ngClass]="{'jh-card padding': noIsHome() }">
+                <router-outlet></router-outlet>
+                <router-outlet name="popup"></router-outlet>
+            </div>
+            <jhi-footer></jhi-footer>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+    <jhi-fab-add></jhi-fab-add>
 </div>
+<!-- /#wrapper -->
+
+<div id="overlay" [ngClass]="{'toggled': isSideBarOpen }" (click)="closeSidebar()"></div>

@@ -1,4 +1,189 @@
 
+.modal-content {
+    border-radius: 0px;
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.ufes {
+    position: fixed;
+    z-index: 0;
+    right: 50px;
+    bottom: 20px;
+}
+
+.padding {
+    padding: 20px;
+}
+
+.no-padding{
+    padding: 0px;
+}
+
+.card .body img {
+    width: 100%;
+}
+.card .body .icone {
+    width: 20px;
+    float: right;
+}
+
+.card .body p {
+    word-wrap: break-word;
+}
+
+.card .body b {
+    font-weight: bold;
+}
+.card .body iframe {
+    width: 100%;
+    border: none;
+    height: 600px;
+}
+
+.card .header {
+    color: #555;
+    padding: 15px;
+    position: relative;
+    border-bottom: 1px solid rgba(204, 204, 204, 0.35);
+}
+
+.card .header .menuc {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.card .header .dropdown-menu.pull-right {
+    right: 0;
+    left: auto;
+    margin-right: 10px;
+}
+.card .header .dropdown-menu {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    -ms-border-radius: 0;
+    border-radius: 0;
+    margin-top: -35px !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.card .header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: normal;
+    color: #111;
+    word-wrap: break-word;
+}
+
+.card .body {
+    font-size: 14px;
+    color: #555;
+    padding: 10px;
+}
+
+
+body{
+    background-color: #f6f6f6;
+    //background-image: url(../images/ufes.png);
+    //background-repeat: no-repeat;
+    //background-position-x: calc(100vw - 320px);
+    //background-position-y: calc(100vh - 320px);
+}
+
+.visivel{
+    display: initial;
+}
+.invisivel{
+    display: none;
+}
+
+.ribbon{
+    display: none;
+}
+
+$sideWidth: 300px;
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding-top: 55px;
+}
+
+#wrapper.toggled .sidebar {
+    width: $sideWidth;
+    margin-left: 0px;
+    opacity: 1;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+@media(max-width:767px){
+    #overlay.toggled {
+        display: block;
+    }
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: relative;
+}
+
+@media(min-width:768px) {
+    #wrapper.toggled #page-content-wrapper {
+        padding-left: $sideWidth;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+    }
+}
+
+#overlay {
+    background:rgba(0,0,0,0.3);
+    display:none;
+    width:100%;
+    height:100%;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index:999;
+}
+
+.jh-card padding {
+    padding: 1.5%;
+}
+
+.jh-card {
+    margin-top: 20px;
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-radius: unset;
+}
+
+.footer {
+    display: none;
+}
+
+
+/// end wraper edited by mfernandes
+
+
+
+
+
+
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
@@ -24,20 +209,20 @@ Generic styles
 
 /* Error highlight on input fields */
 .ng-valid[required], .ng-valid.required  {
-  border-left: 5px solid green;
+    border-left: 5px solid green;
 }
 
 .ng-invalid:not(form)  {
-  border-left: 5px solid red;
+    border-left: 5px solid red;
 }
 
 /* other generic styles */
 
-.jh-card {
-    padding: 1.5%;
-    margin-top: 20px;
-    border: none;
-}
+//.jh-card {
+//    padding: 1.5%;
+//    margin-top: 20px;
+//    border: none;
+//}
 
 .error {
     color: white;
@@ -81,7 +266,7 @@ table td[class*=col-], table th[class*=col-] {
 make sure browsers use the pointer cursor for anchors, even with no href
 ========================================================================== */
 a:hover {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .hand {
@@ -160,12 +345,12 @@ entity tables helpers
 /* Makes toolbar not wrap on smaller screens
    http://www.sketchingwithcss.com/samplechapter/cheatsheet.html#right */
 .flex-btn-group-container {
-   display: -webkit-flex;
-   display: flex;
-   -webkit-flex-direction: row;
-   flex-direction: row;
-   -webkit-justify-content: flex-end;
-   justify-content: flex-end;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
 }
 
 /* ==========================================================================

@@ -1,3 +1,44 @@
-<p>
-  share works!
-</p>
+<div class="modal-header">
+    <h4 class="modal-title">{{ isCompartilhando() ? 'Compartilhar' : 'Receber' }} {{compartilharEl.tipo}}: {{compartilharEl.nome}}</h4>
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="close()"><span aria-hidden="true">x</span>
+    </button>
+</div>
+<div class="modal-body">
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="form-group">
+                <label for="nome">
+                    {{ isCompartilhando() ? 'Destinatário' : 'Remetente' }}
+                </label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="nome"
+                    placeholder="digite o login do usuario"
+                    [(ngModel)]="destinatario"
+                    [disabled]="!isCompartilhando()"
+                >
+            </div>
+            <div class="form-group">
+                <label for="mensagem">Mensagem</label>
+                <textarea
+                    class="form-control"
+                    id="mensagem"
+                    placeholder="digite a mensagem para o usuario"
+                    [(ngModel)]="compartilharEl.mensagem"
+                    [disabled]="!isCompartilhando()"
+                >
+                </textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button *ngIf="isCompartilhando()"  class="btn btn-primary" (click)="compartilhar()">
+        Feito
+        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+    </button>
+    <button *ngIf="!isCompartilhando()" class="btn btn-danger" (click)="rejeitar()">Rejeitar</button>
+    <button *ngIf="!isCompartilhando()" class="btn btn-primary" (click)="receber()">Aceitar</button>
+</div>

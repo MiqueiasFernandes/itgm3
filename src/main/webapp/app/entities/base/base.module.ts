@@ -42,6 +42,7 @@ const ENTITY_STATES = [
         BasePopupComponent,
         BaseDeleteDialogComponent,
         BaseDeletePopupComponent,
+        FabAddBaseComponent
     ],
     providers: [
         BaseService,

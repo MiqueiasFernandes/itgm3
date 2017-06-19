@@ -25,6 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
 
+import org.springframework.web.multipart.MultipartFile;
+import com.itgm.service.jriaccess.Itgmrest;
+
 /**
  * REST controller for managing the current user's account.
  */
@@ -198,5 +201,31 @@ public class AccountResource {
         return !StringUtils.isEmpty(password) &&
             password.length() >= ManagedUserVM.PASSWORD_MIN_LENGTH &&
             password.length() <= ManagedUserVM.PASSWORD_MAX_LENGTH;
+    }
+
+    @PostMapping("/account/image")
+    public ResponseEntity<String> imageUpload(
+        @RequestParam("file") MultipartFile file) {
+        User user = userService.getUserWithAuthorities();
+        String codName = Itgmrest.getCodNome(user);
+        String fileN = "foto" + Itgmrest.getFileExt(file.getOriginalFilename());
+        String dir = "data/";
+        String res = "";
+        if (!Itgmrest.sendFile(codName + "/*/*/*/" + fileN, dir, (file))
+            || ((res = Itgmrest.publicFile(codName, "*", "*", "*", dir, fileN)) == null)) {
+            return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<String>("{\"image\":\"" + res + "\"}", HttpStatus.OK);
+    }
+
+    /**
+     * GET  /endereco : get the endereco of public files.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the current URL in body, or status 500 (Internal Server Error) if the server couldn't be find
+     */
+    @GetMapping("/endereco")
+    @Timed
+    public ResponseEntity<String> getEndereco() {
+        return new ResponseEntity<String>("{\"endereco\":\"" + Itgmrest.getEndereco()+ "\",\"status\":" + Itgmrest.isServerAlive() + "}", HttpStatus.OK);
     }
 }

@@ -82,7 +82,7 @@ jhipster:
         #allow-credentials: true
         #max-age: 1800
     mail:
-        from: itgm@localhost
+        from: forestgrowthsoftware@gmail.com
     swagger:
         default-include-pattern: /api/.*
         title: itgm API

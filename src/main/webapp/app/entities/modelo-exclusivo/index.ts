@@ -6,3 +6,4 @@ export * from './modelo-exclusivo-delete-dialog.component';
 export * from './modelo-exclusivo-detail.component';
 export * from './modelo-exclusivo.component';
 export * from './modelo-exclusivo.route';
+export * from './mapear-modelo/mapear-modelo.component';

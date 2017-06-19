@@ -1,3 +1,18 @@
-<p>
-  fab-add works!
-</p>
+<div id="fab" (click)="toogleMenu()"  [ngClass]="{'invisivel': !aberto }">
+
+    <button id="fab-btn" [ngClass]="{'invisivel': menuOpen }">
+        <i class="fa fa-plus"></i>
+    </button>
+
+    <div id="fab-menu" [ngClass]="{'invisivel': !menuOpen }">
+        <ul class="actions">
+            <li (click)="addNewProjeto()">Projeto</li>
+            <li (click)="addNewCenario()">Cenario</li>
+            <li (click)="novaPrognose()">Prognose</li>
+            <li (click)="openTerminal()">Terminal</li>
+            <li (click)="addNewModelo()">Modelo</li>
+            <li (click)="addNewBase()">Base</li>
+        </ul>
+    </div>
+
+</div>

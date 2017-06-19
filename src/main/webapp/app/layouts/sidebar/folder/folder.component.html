@@ -1,3 +1,26 @@
-<p>
-  folder works!
-</p>
+<li *ngFor="let pasta of getPastas()" class="arvore pasta">
+
+    <img *ngIf="pastaAberta[pasta]" src="../../../../content/images/ext/folder_open.png">
+    <img *ngIf="!pastaAberta[pasta]" src="../../../../content/images/ext/directory.png">
+
+   <span (click)="alterar(pasta)">{{pasta.replace('/', '')}}</span>
+    <ul *ngIf="pastaAberta[pasta]">
+        <jhi-folder [arquivos]="getProximo()[pasta].split(',')" [pai]="pai+pasta"></jhi-folder>
+    </ul>
+</li>
+<li *ngFor="let file of getArquivos()" class="arvore arquivo">
+
+
+    <img *ngIf="getExt(file, ['png', 'jpg', 'jpeg', 'gif'])" src="../../../../content/images/ext/picture.png">
+    <img *ngIf="getExt(file, ['txt'])" src="../../../../content/images/ext/txt.png">
+    <img *ngIf="getExt(file, ['csv', 'xls', 'xlsx'])" src="../../../../content/images/ext/xls.png">
+    <img *ngIf="getExt(file, ['doc', 'docx'])" src="../../../../content/images/ext/doc.png">
+    <img *ngIf="getExt(file, ['rbokeh', 'html'])" src="../../../../content/images/ext/application.png">
+    <img *ngIf="getExt(file, ['R'])" src="../../../../content/images/ext/script.png">
+    <img *ngIf="getExt(file, ['RData'])" src="../../../../content/images/ext/db.png">
+    <img *ngIf="!getExt(file, conhecidos)" src="../../../../content/images/ext/file.png">
+
+    <span (click)="show(file)">{{file}}</span>
+
+    <img *ngIf="loading[file]" src="../../../../content/images/ext/spinner.gif">
+</li>

@@ -1,3 +1,45 @@
-<p>
-  mapear-modelo works!
-</p>
+<div class="modal-header">
+    <h4 class="modal-title">Mapear modelo {{ modeloExclusivo.modelo ? modeloExclusivo.modelo.nome : ''}}</h4>
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="close()"><span aria-hidden="true">x</span>
+    </button>
+</div>
+<div class="modal-body">
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+
+            <div class="form-group" (click)="closeDropdown()">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control"  id="nome" placeholder="{{modeloExclusivo.modelo ? (modeloExclusivo.modelo.nome + 'Exclusivo') : 'modeloExclusivo1'}}" [(ngModel)]="modeloExclusivo.nome">
+            </div>
+
+            <input  (click)="closeDropdown()" type="text" class="form-control" placeholder="adicione campos separados por virgula" (keyup)="adicionar($event)">
+
+            <div class="mapear">
+                <ul class="list">
+                    <li *ngFor="let variavel of vars ;let i = index;" class="variavel">
+                        {{variavel}}:
+                        <button [ngClass]="{'btn': true, 'btn-default': true, 'ativo': visivel[i]}" class="" type="button" (click)="toogleDropdow(i)">
+                            {{titulos[i]}}
+                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                        </button>
+                        <ul [ngClass]="{'visivel': visivel[i]}"  class="dropdown-menu" [style.top]="getTop(i)">
+                            <li *ngFor="let campo of campos ;let j = index;" class="dropdown-item"  (click)="selecionar(i, j)">
+                                <span>{{campo}}</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-group"  (click)="closeDropdown()">
+                <label for="palpite">Palpite:</label>
+                <input type="text" class="form-control"  id="palpite" placeholder="{{palpite}}" [(ngModel)]="modeloExclusivo.palpite">
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button (click)="mapearModelo()" class="btn btn-primary">mapear!</button>
+</div>

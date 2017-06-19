@@ -6,3 +6,4 @@ export * from './modelo-delete-dialog.component';
 export * from './modelo-detail.component';
 export * from './modelo.component';
 export * from './modelo.route';
+export * from './fab-add-modelo/fab-add-modelo.component';

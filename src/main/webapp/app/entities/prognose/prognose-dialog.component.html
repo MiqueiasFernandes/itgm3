@@ -1,0 +1,118 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPrognoseLabel" jhiTranslate="itgmApp.prognose.home.createOrEditLabel">Create or edit a Prognose</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!prognose.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="prognose.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.prognose.nome" for="field_nome">Nome</label>
+            <input type="text" class="form-control" name="nome" id="field_nome"
+                [(ngModel)]="prognose.nome"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.prognose.caminho" for="field_caminho">Caminho</label>
+            <input type="text" class="form-control" name="caminho" id="field_caminho"
+                [(ngModel)]="prognose.caminho"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.prognose.mapeamento" for="field_mapeamento">Mapeamento</label>
+            <input type="text" class="form-control" name="mapeamento" id="field_mapeamento"
+                [(ngModel)]="prognose.mapeamento"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.prognose.salvar" for="field_salvar">Salvar</label>
+            <input type="text" class="form-control" name="salvar" id="field_salvar"
+                [(ngModel)]="prognose.salvar"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.prognose.graficos" for="field_graficos">Graficos</label>
+            <input type="text" class="form-control" name="graficos" id="field_graficos"
+                [(ngModel)]="prognose.graficos"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.prognose.estatisticas" for="field_estatisticas">Estatisticas</label>
+            <input type="text" class="form-control" name="estatisticas" id="field_estatisticas"
+                [(ngModel)]="prognose.estatisticas"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.prognose.forcepredict" for="field_forcepredict">Forcepredict</label>
+            <input type="checkbox" class="form-control" name="forcepredict" id="field_forcepredict"
+                [(ngModel)]="prognose.forcepredict"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.prognose.dividir" for="field_dividir">Dividir</label>
+            <input type="text" class="form-control" name="dividir" id="field_dividir"
+                [(ngModel)]="prognose.dividir"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.prognose.agrupar" for="field_agrupar">Agrupar</label>
+            <input type="text" class="form-control" name="agrupar" id="field_agrupar"
+                [(ngModel)]="prognose.agrupar"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.prognose.treino" for="field_treino">Treino</label>
+            <input type="number" class="form-control" name="treino" id="field_treino"
+                [(ngModel)]="prognose.treino"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.prognose.fncalculavolume" for="field_fncalculavolume">Fncalculavolume</label>
+            <input type="text" class="form-control" name="fncalculavolume" id="field_fncalculavolume"
+                [(ngModel)]="prognose.fncalculavolume"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="itgmApp.prognose.status" for="field_status">Status</label>
+            <input type="number" class="form-control" name="status" id="field_status"
+                [(ngModel)]="prognose.status"
+             />
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="itgmApp.prognose.ajuste" for="field_ajuste">Ajuste</label>
+            <select class="form-control" id="field_ajuste" name="ajuste" [(ngModel)]="prognose.ajuste" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="baseOption.id === prognose.ajuste?.id ? prognose.ajuste : baseOption" *ngFor="let baseOption of bases; trackBy: trackBaseById">{{baseOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="itgmApp.prognose.validacao" for="field_validacao">Validacao</label>
+            <select class="form-control" id="field_validacao" name="validacao" [(ngModel)]="prognose.validacao" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="baseOption.id === prognose.validacao?.id ? prognose.validacao : baseOption" *ngFor="let baseOption of bases; trackBy: trackBaseById">{{baseOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label jhiTranslate="itgmApp.prognose.modeloExclusivo" for="field_modeloExclusivo">Modelo Exclusivo</label>
+            <select class="form-control" id="field_modeloExclusivo" name="modeloExclusivo" [(ngModel)]="prognose.modeloExclusivo" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="modeloExclusivoOption.id === prognose.modeloExclusivo?.id ? prognose.modeloExclusivo : modeloExclusivoOption" *ngFor="let modeloExclusivoOption of modeloexclusivos; trackBy: trackModeloExclusivoById">{{modeloExclusivoOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

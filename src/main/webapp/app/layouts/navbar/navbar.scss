@@ -1,4 +1,39 @@
 
+//edited by mikeias
+
+.vermelho {
+    color: red;
+}
+
+.verde {
+    color: green;
+}
+
+.navbar-fixed-top{
+    position: fixed;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    top: 0;
+}
+
+.bell{
+    margin-top: -5px;
+    position: absolute;
+    background-color: #006958;
+}
+
+.jh-navbar {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.19);
+}
+
+.navbar-title {
+    font-family: 'Cutive Mono', monospace;
+    color: white;
+}
+
+
+
 /* ==========================================================================
 Navbar
 ========================================================================== */
@@ -63,7 +98,7 @@ Logo styles
             width: 70px;
             display: inline-block;
             vertical-align: middle;
-            background: url("../../../content/images/logo-jhipster.png") no-repeat center center;
+            background: url("../../../content/images/itgm.png") no-repeat center center;
             background-size: contain;
         }
     }

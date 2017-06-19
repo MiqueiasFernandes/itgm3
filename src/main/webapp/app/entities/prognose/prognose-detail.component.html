@@ -1,0 +1,87 @@
+
+<div *ngIf="prognose">
+    <h2><span jhiTranslate="itgmApp.prognose.detail.title">Prognose</span> {{prognose.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="itgmApp.prognose.nome">Nome</span></dt>
+        <dd>
+            <span>{{prognose.nome}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.prognose.caminho">Caminho</span></dt>
+        <dd>
+            <span>{{prognose.caminho}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.prognose.mapeamento">Mapeamento</span></dt>
+        <dd>
+            <span>{{prognose.mapeamento}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.prognose.salvar">Salvar</span></dt>
+        <dd>
+            <span>{{prognose.salvar}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.prognose.graficos">Graficos</span></dt>
+        <dd>
+            <span>{{prognose.graficos}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.prognose.estatisticas">Estatisticas</span></dt>
+        <dd>
+            <span>{{prognose.estatisticas}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.prognose.forcepredict">Forcepredict</span></dt>
+        <dd>
+            <span>{{prognose.forcepredict}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.prognose.dividir">Dividir</span></dt>
+        <dd>
+            <span>{{prognose.dividir}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.prognose.agrupar">Agrupar</span></dt>
+        <dd>
+            <span>{{prognose.agrupar}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.prognose.treino">Treino</span></dt>
+        <dd>
+            <span>{{prognose.treino}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.prognose.fncalculavolume">Fncalculavolume</span></dt>
+        <dd>
+            <span>{{prognose.fncalculavolume}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.prognose.status">Status</span></dt>
+        <dd>
+            <span>{{prognose.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.prognose.ajuste">Ajuste</span></dt>
+        <dd>
+            <div *ngIf="prognose.ajuste">
+                <a [routerLink]="['/base', prognose.ajuste?.id]">{{prognose.ajuste?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.prognose.validacao">Validacao</span></dt>
+        <dd>
+            <div *ngIf="prognose.validacao">
+                <a [routerLink]="['/base', prognose.validacao?.id]">{{prognose.validacao?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="itgmApp.prognose.modeloExclusivo">Modelo Exclusivo</span></dt>
+        <dd>
+            <div *ngIf="prognose.modeloExclusivo">
+                <a [routerLink]="['/modelo-exclusivo', prognose.modeloExclusivo?.id]">{{prognose.modeloExclusivo?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'prognose/'+ prognose.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,3 +1,28 @@
-<p>
-  selecionar-cenario works!
-</p>
+<div class="modal-header">
+    <h4 class="modal-title">Selecionar Cenario</h4>
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="close()"><span aria-hidden="true">x</span>
+    </button>
+</div>
+<div class="modal-body">
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="dropdown pointer">
+                Cenario:
+                <button class="btn btn-default" type="button" (click)="toogleDropdown()">
+                    {{titulo}}
+                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu" (click)="toogleDropdown()" [ngClass]="{visivel: visivel}">
+                    <li *ngFor="let cenario of cenarios ;trackBy: trackId" class="dropdown-item"  (click)="selecionar(cenario)">
+                        <div>{{cenario.nome}}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button (click)="adicionarCenario()" class="btn btn-success">Novo</button>
+    <button (click)="alterarCenario()" class="btn btn-primary">feito</button>
+</div>

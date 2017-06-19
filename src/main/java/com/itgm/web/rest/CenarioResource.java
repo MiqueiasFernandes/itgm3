@@ -4,6 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.itgm.domain.Cenario;
 
 import com.itgm.repository.CenarioRepository;
+import com.itgm.security.SecurityUtils;
 import com.itgm.repository.search.CenarioSearchRepository;
 import com.itgm.web.rest.util.HeaderUtil;
 import com.itgm.web.rest.util.PaginationUtil;
@@ -24,8 +25,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
-
 import static org.elasticsearch.index.query.QueryBuilders.*;
+
+import com.itgm.service.jriaccess.Itgmrest;
+import com.itgm.domain.Projeto;
 
 /**
  * REST controller for managing Cenario.
@@ -37,7 +40,7 @@ public class CenarioResource {
     private final Logger log = LoggerFactory.getLogger(CenarioResource.class);
 
     private static final String ENTITY_NAME = "cenario";
-        
+
     private final CenarioRepository cenarioRepository;
 
     private final CenarioSearchRepository cenarioSearchRepository;
@@ -61,7 +64,27 @@ public class CenarioResource {
         if (cenario.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new cenario cannot already have an ID")).body(null);
         }
+
+        if (cenario.getProjeto() == null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "invaliduser", "Informe o projeto para criar o novo cenario.")).body(null);
+        }
+
         Cenario result = cenarioRepository.save(cenario);
+//        cenarioSearchRepository.save(result);
+
+        Projeto projeto = result.getProjeto();
+
+        if (Itgmrest.createNew(projeto.getUser(), projeto.getNome(), result.getNome(), "*", null, result.toString())) {
+            String codname = Itgmrest.getCodNome(projeto.getUser());
+            String comp = codname + "/" + projeto.getNome() + "/" + result.getNome();
+            if (((String) Itgmrest.listFiles(comp + "/*"))
+                .contains(comp + "/" + ".info")) {
+                result.setCaminho(codname + "/" + projeto.getNome() + "/" + result.getNome() + "/");
+                result = updateCenario(result).getBody();
+            } else {
+                return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "ITGMRestfalhou", "Erro ao tentar criar novo cenario.")).body(null);
+            }
+        }
         cenarioSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/cenarios/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -101,7 +124,13 @@ public class CenarioResource {
     @Timed
     public ResponseEntity<List<Cenario>> getAllCenarios(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Cenarios");
-        Page<Cenario> page = cenarioRepository.findAll(pageable);
+        Page<Cenario> page;
+
+        if(SecurityUtils.isCurrentUserInRole("ROLE_ADMIN"))
+            page = cenarioRepository.findAll(pageable);
+        else
+            page = cenarioRepository.findByUserIsCurrentUser(pageable);
+
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/cenarios");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -130,16 +159,26 @@ public class CenarioResource {
     @Timed
     public ResponseEntity<Void> deleteCenario(@PathVariable Long id) {
         log.debug("REST request to delete Cenario : {}", id);
+        Cenario cenario = getCenario(id).getBody();
+        Projeto projeto = cenario.getProjeto();
+        Itgmrest.removeDIR(
+            Itgmrest.getCodNome(projeto.getUser()),
+            projeto.getNome(),
+            cenario.getNome(),
+            null,
+            null,
+            null);
         cenarioRepository.delete(id);
         cenarioSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
+
     /**
      * SEARCH  /_search/cenarios?query=:query : search for the cenario corresponding
      * to the query.
      *
-     * @param query the query of the cenario search 
+     * @param query the query of the cenario search
      * @param pageable the pagination information
      * @return the result of the search
      */
@@ -153,4 +192,50 @@ public class CenarioResource {
     }
 
 
+
+    /**
+     * GET  /listar/:id : get list of files in cenario.
+     *
+     * @param id the id of the cenario to retrieve
+     * @return the ResponseEntity with status 200 (OK) and the list of files in body
+     */
+    @GetMapping("/cenarios/listar/{id}")
+    @Timed
+    public ResponseEntity<String> getAllFilesName(@PathVariable Long id) {
+        Cenario cenario = cenarioRepository.findOne(id);
+        log.debug("REST request to get a list of files in Cenario " + cenario.getId());
+
+        String path =
+            cenario.getProjeto().getUser().getLogin() + "/"+
+                cenario.getProjeto().getNome() + "/"+
+                cenario.getNome() + "/*";
+
+        String ret = Itgmrest.listFiles(path);
+        return new ResponseEntity<>("{\"files\":\"" + ret + "\"}", HttpStatus.OK);
+    }
+
+    @GetMapping("/cenarios/publicar/{id}")
+    @Timed
+    public ResponseEntity<String> publicarArquivoparaExibir(
+        @PathVariable Long id,
+        @RequestParam("path") String path,
+        @RequestParam("file") String file,
+        @RequestParam("meta") boolean meta,
+        @RequestParam("image") boolean image) {
+        log.debug("REST request to public file in Cenario: " + id + " path: " + path + " file: " + file);
+        Cenario cenario;
+        return new ResponseEntity<String>("{\"file\":\"" +
+            (id < 0 ?
+                Itgmrest.getContent(
+                    file,
+                    path + "&cript=true")
+                :
+                Itgmrest.publicFile(
+                    (cenario = cenarioRepository.findOne(id)).getProjeto().getUser().getLogin(),
+                    cenario.getProjeto().getNome(),
+                    cenario.getNome(),
+                    "*",
+                    path + (meta ? ("&meta=true&image=" + image) : ""),
+                    file)) + "\"}", HttpStatus.OK);
+    }
 }

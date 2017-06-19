@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Prognose.
+    -->
+    <changeSet id="20170619041208-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="ajuste_id"
+                                 baseTableName="prognose"
+                                 constraintName="fk_prognose_ajuste_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="base"/>
+
+        <addForeignKeyConstraint baseColumnNames="validacao_id"
+                                 baseTableName="prognose"
+                                 constraintName="fk_prognose_validacao_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="base"/>
+
+        <addForeignKeyConstraint baseColumnNames="modelo_exclusivo_id"
+                                 baseTableName="prognose"
+                                 constraintName="fk_prognose_modelo_exclusivo_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="modelo_exclusivo"/>
+
+    </changeSet>
+</databaseChangeLog>

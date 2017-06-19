@@ -42,6 +42,7 @@ const ENTITY_STATES = [
         ModeloExclusivoPopupComponent,
         ModeloExclusivoDeleteDialogComponent,
         ModeloExclusivoDeletePopupComponent,
+        MapearModeloComponent
     ],
     providers: [
         ModeloExclusivoService,

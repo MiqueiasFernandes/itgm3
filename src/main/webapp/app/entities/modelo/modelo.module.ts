@@ -44,6 +44,7 @@ const ENTITY_STATES = [
         ModeloPopupComponent,
         ModeloDeleteDialogComponent,
         ModeloDeletePopupComponent,
+        FabAddModeloComponent
     ],
     providers: [
         ModeloService,

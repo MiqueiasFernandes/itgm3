@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { JhiLanguageService } from 'ng-jhipster';
 
 import { Principal, AccountService, JhiLanguageHelper } from '../../shared';
+import {CustomizeService} from '../../entities/customize/customize.service';
 
 @Component({
     selector: 'jhi-settings',
@@ -12,14 +13,21 @@ export class SettingsComponent implements OnInit {
     success: string;
     settingsAccount: any;
     languages: any[];
+    file: any;
+    onLoad = false;
+    showMenu = false;
 
     constructor(
         private account: AccountService,
         private principal: Principal,
         private languageService: JhiLanguageService,
-        private languageHelper: JhiLanguageHelper
+        private languageHelper: JhiLanguageHelper,
+        private customizeService: CustomizeService,
     ) {
         this.languageService.setLocations(['settings']);
+        this.customizeService.getDesktop().subscribe((desktop) => {
+            this.showMenu = desktop.entidades;
+        });
     }
 
     ngOnInit() {
@@ -59,5 +67,24 @@ export class SettingsComponent implements OnInit {
             login: account.login,
             imageUrl: account.imageUrl
         };
+    }
+    setFile($event) {
+        this.file = $event.target.files[0];
+        this.account.sendImage(this.file)
+            .map((res) => res.json())
+            .subscribe(
+                (response) => {
+                    console.log('image: ' + response.image);
+                    this.settingsAccount.imageUrl = response.image;
+                    this.onLoad = false;
+                },
+                (error) => {
+                    this.onLoad = false;
+                });
+        this.onLoad = true;
+    }
+
+    alterarMenu() {
+        this.customizeService.setMenuEntidades(this.showMenu = !this.showMenu);
     }
 }

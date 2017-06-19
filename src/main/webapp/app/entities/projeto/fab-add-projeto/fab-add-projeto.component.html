@@ -1,3 +1,19 @@
-<p>
-  fab-add-projeto works!
-</p>
+<div class="modal-header">
+    <h4 class="modal-title">Criar novo projeto</h4>
+    <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="close()"><span aria-hidden="true">x</span>
+    </button>
+</div>
+<div class="modal-body">
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control"  id="nome" placeholder="digite o nome do projeto" [(ngModel)]="projeto.nome">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button (click)="criarProjeto()" class="btn btn-primary">criar</button>
+</div>

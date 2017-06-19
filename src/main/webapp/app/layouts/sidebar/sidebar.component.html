@@ -1,3 +1,132 @@
-<p>
-  sidebar works!
-</p>
+<div class="sidebar" *ngIf="isUserAuthenticated()">
+
+    <div class="user-info">
+        <div class="image" *ngIf="image">
+            <!--<img *ngIf="customize && customize.avatar" [src]="'data:' + customize.avatarContentType + ';base64,' + customize.avatar" alt="{{nome}}" width="48" height="48"/>-->
+            <img *ngIf="image" [src]="image"  alt="{{nome}}" width="48" height="48">
+        </div>
+        <div class="info-container">
+            <div class="name"  (click)="configurar()">
+                {{nome}}
+            </div>
+            <div class="email"  (click)="configurar()">{{email}}</div>
+            <div class="fixSidebar" (click)="toogleBlockSideBar()">
+                <i [ngClass]="{'fa' : true,  'fa-lock' : isSidebarFixed , 'fa-unlock-alt' : !isSidebarFixed}" aria-hidden="true">
+                </i>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu">
+        <!--<jhi-alert></jhi-alert>-->
+        <ul class="list">
+
+            <li class="header">
+                <span (click)="selecionarProjeto()">{{projeto ? projeto.nome : 'selecione um projeto'}}</span>
+                <i class="fa fa-caret-right" aria-hidden="true"></i>
+                <span (click)="selecionarCenario()">{{cenario ? cenario.nome : 'selecione um cenario'}}</span>
+            </li>
+
+            <li *ngIf="projeto !== null && projeto !== undefined" [ngClass]="{'nivel1': true, 'ativo': isbasesOpen}" (click)="loadAllBases()">
+                Bases
+
+                <i *ngIf="loadBases" class="fa fa-spinner fa-pulse fa-fw"></i>
+
+
+                <i [ngClass]="{
+                         'fa' : true,
+                         'right': true,
+                         'fa-chevron-up' : isbasesOpen,
+                         'fa-chevron-down' : !isbasesOpen
+                         }" aria-hidden="true"></i>
+                <ul class="list" *ngIf="bases">
+                    <li *ngFor="let base of bases ;trackBy: trackId" class="nivel2">
+                        {{base.nome}} ({{base.id}})
+
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'base/'+ base.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+
+                        <button class="btn btn-success btn-sm" (click)="compartilharBase(base)">
+                            <i class="fa fa-share" aria-hidden="true"></i>
+                        </button>
+                    </li>
+
+                    <li class="nivel2" (click)="addNewBase()">
+                        Importar Base
+                        <i class="fa fa-plus right" aria-hidden="true"></i>
+                    </li>
+
+                </ul>
+            </li>
+
+            <li [ngClass]="{'nivel1': true, 'ativo': isModelosOpen}" (click)="loadAllModelos()">
+                Modelos
+
+                <i *ngIf="loadModelos" class="fa fa-spinner fa-pulse fa-fw"></i>
+
+
+                <i [ngClass]="{
+                         'fa' : true,
+                         'right': true,
+                         'fa-chevron-up' : isModelosOpen,
+                         'fa-chevron-down' : !isModelosOpen
+                         }" aria-hidden="true"></i>
+                <ul class="list" *ngIf="modelos">
+                    <li *ngFor="let modelo of modelos ;trackBy: trackId" class="nivel2" (click)="mapear(modelo)">
+                        {{modelo.nome}} ({{modelo.id}})
+
+                        <button class="btn btn-info btn-sm" (click)="excluirMapeamento(modelo)" >
+                            <i  class="fa {{isModeloMapeado(modelo) ? 'fa-check' : 'fa-cog'}}"
+                                aria-hidden="true">
+                            </i>
+                        </button>
+
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'modelo/'+ modelo.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+
+                        <button class="btn btn-success btn-sm" (click)="compartilharModelo(modelo)">
+                            <i class="fa fa-share" aria-hidden="true"></i>
+                        </button>
+
+                    </li>
+                    <li class="nivel2" (click)="addNewModelo()">
+                        Cadastrar Modelo
+                        <i class="fa fa-plus right" aria-hidden="true"></i>
+                    </li>
+                </ul>
+            </li>
+
+            <li *ngIf="cenario !== null && cenario !== undefined" class="nivel1">
+               Nova Prognose
+            </li>
+
+            <li *ngIf="cenario !== null && cenario !== undefined"
+                [ngClass]="{'nivel1': true, 'ativo': isArquivosOpen}">
+                <div (click)="listar()">
+                    Resultados <i *ngIf="loadArquivos" class="fa fa-spinner fa-pulse fa-fw"></i>
+                    <i [ngClass]="{
+                         'fa' : true,
+                         'right': true,
+                         'fa-chevron-up' : isArquivosOpen,
+                         'fa-chevron-down' : !isArquivosOpen
+                         }" aria-hidden="true"></i>
+                </div>
+                <ul class="nivel2">
+                    <jhi-folder [arquivos]="arquivos" [pai]="cenario.caminho"></jhi-folder>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        (C) UFES
+    </div>
+</div>
